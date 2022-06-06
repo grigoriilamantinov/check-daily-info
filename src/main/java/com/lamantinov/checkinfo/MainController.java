@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/text")
-public class Controller1 {
-    final MyService myService;
+public class MainController {
+    final MainService myService;
 
     @Autowired
-    public Controller1(MyService myService) {
+    public MainController(MainService myService) {
         this.myService = myService;
     }
 
     @GetMapping()
-    public String checkText() {
+    public String getMainPage() {
         myService.getResponse();
-        return "text1.html";
+        return "main-page.html";
     }
 }
