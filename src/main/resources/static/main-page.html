@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Main page</title>
 </head>
 <body>
 This is Main Page!
+<br>
+<br>
+<form th:method="GET" th:action="@{/main/temperature}">
+    <button type="submit">Check temperature</button>
+</form>
 </body>
 </html>
