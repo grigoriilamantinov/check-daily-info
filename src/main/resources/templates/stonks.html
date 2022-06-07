@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stonks</title>
+</head>
+<body>
+Stonks is:
+<p th:text="${stonks.getDollar}" />
+<p th:text="${stonks.getEuro}" />
+<p th:text="${stonks.getOil}" />
+<form th:method="GET" th:action="@{/main}">
+    <button type="submit">BACK TO MAIN PAGE</button>
+</form>
+</body>
+</html>

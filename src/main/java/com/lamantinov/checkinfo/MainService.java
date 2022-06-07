@@ -3,6 +3,8 @@ package com.lamantinov.checkinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class MainService {
@@ -14,7 +16,15 @@ public class MainService {
         this.parser = parser;
     }
 
-    public String getTemperature() {
+    public MainDTO getTemperature() {
         return parser.parsTemperature();
+    }
+
+    public MainDTO getDollar() {
+        return parser.parsDollar();
+    }
+
+    public List<String> getNews() {
+        return parser.parsNews().getNews();
     }
 }

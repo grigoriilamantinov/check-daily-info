@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/main")
 public class MainController {
     final MainService mainService;
 
@@ -15,13 +15,26 @@ public class MainController {
         this.mainService = mainService;
     }
 
-    @GetMapping()
+    @GetMapping ("/main")
     public String showMainPage() {
-        return "temperature-page.html";
+        return "main-page";
     }
 
-    @RequestMapping("/2")
-    public String showMainPage2() {
-        return "main-page.html";
+    @GetMapping ("/main/temperature")
+    public String showTemperature(Model model) {
+        model.addAttribute("temperature", mainService.getTemperature());
+        return "temperature";
+    }
+
+    @GetMapping ("/main/stonks")
+    public String showStonks(Model model) {
+        model.addAttribute("stonks", mainService.getDollar());
+        return "stonks";
+    }
+
+    @GetMapping ("/main/news")
+    public String showNews(Model model) {
+        model.addAttribute("news", mainService.getNews());
+        return "news";
     }
 }
