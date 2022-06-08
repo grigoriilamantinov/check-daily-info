@@ -21,7 +21,7 @@ public class MainService {
     }
 
     public MainDTO getDollar() {
-        return parser.parsDollar();
+        return parser.parsStonks();
     }
 
     public List<String> getNews() {

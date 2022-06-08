@@ -6,6 +6,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 public class Parser {
@@ -31,14 +35,38 @@ public class Parser {
         return mainDTO;
     }
 
-    public MainDTO parsDollar() {
-        String openTag = "<div class='stocks__item-value'>";
-        String closeTag = "</div>";
+    public MainDTO parsStonks() {
+        String bigOpenTag = "<div class='stocks__item-left'>";
+        String bigCloseTag = "<div class='stocks__item-delta'>";
 
-        String[] stringArray = StringUtils.substringsBetween(response, openTag, closeTag);
-        mainDTO.setDollar(stringArray[0]);
-        mainDTO.setEuro(stringArray[1]);
-        mainDTO.setOil(stringArray[4]);
+
+        Pattern firstPattern = Pattern.compile(".{3}.ЦБ");
+        Pattern secondPattern = Pattern.compile("Нефть");
+        Pattern valuePattern = Pattern.compile("\\d+,\\d\\d..");
+
+        Matcher firstMatcher;
+        Matcher secondMatcher;
+        Matcher valueMatcher;
+
+        String[] stringArray = StringUtils.substringsBetween(response, bigOpenTag, bigCloseTag);
+        Map<String, String> stonksValues = new TreeMap<>();
+
+        for (String s : stringArray){
+
+            firstMatcher = firstPattern.matcher(s);
+            secondMatcher = secondPattern.matcher(s);
+            valueMatcher = valuePattern.matcher(s);
+
+            if (firstMatcher.find() && valueMatcher.find()) {
+                stonksValues.put(firstMatcher.group(), valueMatcher.group());
+            } else if (secondMatcher.find() && valueMatcher.find()) {
+                stonksValues.put(secondMatcher.group(), valueMatcher.group());
+            }
+        }
+
+        stonksValues.entrySet()
+            .forEach(entry -> System.out.println(entry.getKey() + " - " + entry.getValue()));
+
         return mainDTO;
     }
 
