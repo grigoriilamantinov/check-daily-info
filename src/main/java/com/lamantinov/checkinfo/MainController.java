@@ -28,7 +28,7 @@ public class MainController {
 
     @GetMapping ("/main/stonks")
     public String showStonks(Model model) {
-        model.addAttribute("stonks", mainService.getDollar());
+        model.addAttribute("stonks", mainService.getStonks());
         return "stonks";
     }
 

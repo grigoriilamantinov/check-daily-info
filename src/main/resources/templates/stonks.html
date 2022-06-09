@@ -6,9 +6,14 @@
 </head>
 <body>
 Stonks is:
-<p th:text="${stonks.getDollar}" />
-<p th:text="${stonks.getEuro}" />
-<p th:text="${stonks.getOil}" />
+<table>
+    <tr th:each="stonks : ${stonks}">
+        <td th:text="${stonks.key}">
+        </td>
+        <td th:text="' - ' + ${stonks.value}">
+        </td>
+    </tr>
+</table>
 <form th:method="GET" th:action="@{/main}">
     <button type="submit">BACK TO MAIN PAGE</button>
 </form>

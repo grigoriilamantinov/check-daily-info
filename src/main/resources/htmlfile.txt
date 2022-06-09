@@ -20273,7 +20273,7 @@
 													</div>
 												</div>
 												<div class='stocks__item-right'>
-													<div class='stocks__item-value'>60,96 ₽</div>
+													<div class='stocks__item-value'>биба б1060,96 ₽</div>
 													<div class='stocks__item-delta'>−0,15</div>
 												</div>
 											</a><a

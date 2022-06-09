@@ -35,7 +35,7 @@ public class Parser {
         return mainDTO;
     }
 
-    public MainDTO parsStonks() {
+    public Map<String, String> parsStonks() {
         String bigOpenTag = "<div class='stocks__item-left'>";
         String bigCloseTag = "<div class='stocks__item-delta'>";
 
@@ -64,10 +64,7 @@ public class Parser {
             }
         }
 
-        stonksValues.entrySet()
-            .forEach(entry -> System.out.println(entry.getKey() + " - " + entry.getValue()));
-
-        return mainDTO;
+        return stonksValues;
     }
 
     public MainDTO parsNews() {

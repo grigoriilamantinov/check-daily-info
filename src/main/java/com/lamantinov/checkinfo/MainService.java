@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -20,7 +21,7 @@ public class MainService {
         return parser.parsTemperature();
     }
 
-    public MainDTO getDollar() {
+    public Map<String, String> getStonks() {
         return parser.parsStonks();
     }
 
