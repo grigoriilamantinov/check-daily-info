@@ -41,8 +41,8 @@ public class Parser {
 
 
         Pattern firstPattern = Pattern.compile(".{3}.ЦБ");
-        Pattern secondPattern = Pattern.compile("Нефть");
         Pattern valuePattern = Pattern.compile("\\d+,\\d\\d..");
+        Pattern secondPattern = Pattern.compile("Нефть");
 
         Matcher firstMatcher;
         Matcher secondMatcher;
@@ -63,18 +63,17 @@ public class Parser {
                 stonksValues.put(secondMatcher.group(), valueMatcher.group());
             }
         }
-
         return stonksValues;
     }
 
     public MainDTO parsNews() {
-        String openTag = "<a aria-label=";
-        String closeTag = "target=";
+        String openTag = "news__item-content'>";
+        String closeTag = "</span>";
 
         String[] stringArray = StringUtils.substringsBetween(response, openTag, closeTag);
         List<String> news = new ArrayList<>();
-        for (int i = 2; i < 7; i++) {
-            news.add(stringArray[i]);
+        for (String s : stringArray) {
+            news.add(s);
         }
 
         mainDTO.setNews(news);
