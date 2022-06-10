@@ -17,7 +17,7 @@ public class MainService {
         this.parser = parser;
     }
 
-    public TemperatureDTO getTemperature() {
+    public String getTemperature() {
         return parser.parsTemperature();
     }
 
