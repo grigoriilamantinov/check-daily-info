@@ -3,6 +3,7 @@ package com.lamantinov.checkinfo.parsers;
 import com.lamantinov.checkinfo.htmlKeepers.YandexHTMLKeeper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,16 +24,16 @@ public class ParserImpl implements Parser {
     private final static Pattern oilPattern = Pattern.compile("Нефть");
     private final static Pattern temperaturePattern = Pattern.compile("[+-]\\d+[°]");
 
-    private final static String response = YandexHTMLKeeper.getHTMLCode();
+//    private final static String response = YandexHTMLKeeper.getHTMLCode();
 
 //    Code below needed for real http request.
-//    String URL = "https://yandex.ru/";
-//    RestTemplate restTemplate = new RestTemplate();
-//    String response = restTemplate.getForObject(URL, String.class);
+    private final String URL = "https://yandex.ru/";
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final String response = restTemplate.getForObject(URL, String.class);
 
     @Override
     public String parsTemperature() {
-        String[] stringArray = StringUtils.substringsBetween(response, temperatureOpenTag, temperatureCloseTag);
+        final String[] stringArray = StringUtils.substringsBetween(response, temperatureOpenTag, temperatureCloseTag);
         if (isTemperature(stringArray)) {
             return stringArray[0];
         } else {
