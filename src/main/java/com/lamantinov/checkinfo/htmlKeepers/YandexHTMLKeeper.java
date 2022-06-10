@@ -1,14 +1,14 @@
-package com.lamantinov.checkinfo;
+package com.lamantinov.checkinfo.htmlKeepers;
 
 import java.io.BufferedReader;
 
 import java.io.FileReader;
 import java.io.IOException;
 
-public class HTMLKeeper {
+public class YandexHTMLKeeper {
     public static String getHTMLCode() {
         BufferedReader br = null;
-        String everything = "No code";
+        String everything;
         try {
             br = new BufferedReader(new FileReader("/home/grigorii/checkInfo/src/main/resources/htmlfile.txt"));
             StringBuilder sb = new StringBuilder();

@@ -20183,7 +20183,7 @@
 													target="_blank" rel="noopener" data-statlog="weather.grade"
 													data-statlog-showed="1">
 													<div class="weather__icon weather__icon_skc_n" title="ясно"></div>
-													<div class='weather__temp'>+13°</div>
+													<div class='weather__temp'>+10°</div>
 												</a>
 												<div class='weather__forecast'><a aria-label="ночью +9 °C"
 														class="home-link2 weather__forecast-link home-link2_color_inherit home-link2_hover_red"
