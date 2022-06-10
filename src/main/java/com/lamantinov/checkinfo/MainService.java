@@ -17,7 +17,7 @@ public class MainService {
         this.parser = parser;
     }
 
-    public MainDTO getTemperature() {
+    public TemperatureDTO getTemperature() {
         return parser.parsTemperature();
     }
 
@@ -25,7 +25,7 @@ public class MainService {
         return parser.parsStonks();
     }
 
-    public List<String> getNews() {
-        return parser.parsNews().getNews();
+    public String[] getNews() {
+        return parser.parsNews();
     }
 }

@@ -2,7 +2,6 @@ package com.lamantinov.checkinfo;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,25 +13,25 @@ import java.util.regex.Pattern;
 @Component
 public class Parser {
 
-    String response = HTMLKeeper.getHTMLCode();
-    MainDTO mainDTO = new MainDTO();
+    private static String response = HTMLKeeper.getHTMLCode();
+    private static String newsOpenTag = "news__item-content'>";
+    private static String newsCloseTag = "</span>";
 
 //    String URL = "https://yandex.ru/";
 //    RestTemplate restTemplate = new RestTemplate();
 //    String response = restTemplate.getForObject(URL, String.class);
 
-    public MainDTO parsTemperature() {
-        String openTag = "<div class='weather__temp'>";
-        String closeTag = "</div>";
+    public TemperatureDTO parsTemperature() {
+        final String openTag = "<div class='weather__temp'>";
+        final String closeTag = "</div>";
         String result = "no result";
-
 
         String[] stringArray = StringUtils.substringsBetween(response, openTag, closeTag);
         for (String s : stringArray){
             result = s;
         }
-        mainDTO.setTemperature(result);
-        return mainDTO;
+
+        return new TemperatureDTO(result);
     }
 
     public Map<String, String> parsStonks() {
@@ -44,39 +43,29 @@ public class Parser {
         Pattern valuePattern = Pattern.compile("\\d+,\\d\\d..");
         Pattern secondPattern = Pattern.compile("Нефть");
 
-        Matcher firstMatcher;
-        Matcher secondMatcher;
+        Matcher currencyMatcher;
+        Matcher oilMatcher;
         Matcher valueMatcher;
 
         String[] stringArray = StringUtils.substringsBetween(response, bigOpenTag, bigCloseTag);
         Map<String, String> stonksValues = new TreeMap<>();
 
-        for (String s : stringArray){
+        for (String stonks : stringArray){
 
-            firstMatcher = firstPattern.matcher(s);
-            secondMatcher = secondPattern.matcher(s);
-            valueMatcher = valuePattern.matcher(s);
+            currencyMatcher = firstPattern.matcher(stonks);
+            oilMatcher = secondPattern.matcher(stonks);
+            valueMatcher = valuePattern.matcher(stonks);
 
-            if (firstMatcher.find() && valueMatcher.find()) {
-                stonksValues.put(firstMatcher.group(), valueMatcher.group());
-            } else if (secondMatcher.find() && valueMatcher.find()) {
-                stonksValues.put(secondMatcher.group(), valueMatcher.group());
+            if (currencyMatcher.find() && valueMatcher.find()) {
+                stonksValues.put(currencyMatcher.group(), valueMatcher.group());
+            } else if (oilMatcher.find() && valueMatcher.find()) {
+                stonksValues.put(oilMatcher.group(), valueMatcher.group());
             }
         }
         return stonksValues;
     }
 
-    public MainDTO parsNews() {
-        String openTag = "news__item-content'>";
-        String closeTag = "</span>";
-
-        String[] stringArray = StringUtils.substringsBetween(response, openTag, closeTag);
-        List<String> news = new ArrayList<>();
-        for (String s : stringArray) {
-            news.add(s);
-        }
-
-        mainDTO.setNews(news);
-        return mainDTO;
+    public String[] parsNews() {
+        return StringUtils.substringsBetween(response, newsOpenTag, newsCloseTag);
     }
 }
