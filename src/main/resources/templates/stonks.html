@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stonks</title>
+</head>
+<body>
+Stonks is:
+<table>
+    <tr th:each="stonks : ${stonksList}">
+        <td th:text="${stonks.key}">
+        </td>
+        <td th:text="' - ' + ${stonks.value}">
+        </td>
+    </tr>
+</table>
+<form th:method="GET" th:action="@{/}">
+    <button type="submit">BACK TO MAIN PAGE</button>
+</form>
+</body>
+</html>

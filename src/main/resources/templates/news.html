@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News</title>
+</head>
+<body>
+News is:
+<ul th:each="news : ${newsList}">
+    <li th:text="${news}"></li>
+</ul>
+<form th:method="GET" th:action="@{/}">
+    <button type="submit">BACK TO MAIN PAGE</button>
+</form>
+</body>
+</html>
