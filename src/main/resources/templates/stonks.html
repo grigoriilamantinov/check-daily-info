@@ -7,7 +7,7 @@
 <body>
 Stonks is:
 <table>
-    <tr th:each="stonks : ${stonks}">
+    <tr th:each="stonks : ${stonksList}">
         <td th:text="${stonks.key}">
         </td>
         <td th:text="' - ' + ${stonks.value}">

@@ -1,7 +1,7 @@
 package com.lamantinov.checkinfo.controllers;
 
 import com.lamantinov.checkinfo.services.ServiceInterface;
-import com.lamantinov.checkinfo.services.YandexService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,30 +12,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
     final ServiceInterface serviceInterface;
 
-    public MainController(final ServiceInterface serviceInterface) {
+    public MainController(
+        @Autowired final ServiceInterface serviceInterface
+    ) {
         this.serviceInterface = serviceInterface;
     }
 
-    @GetMapping ()
+    @GetMapping()
     public String showMainPage() {
         return "main-page";
     }
 
-    @GetMapping ("/temperature")
+    @GetMapping("/temperature")
     public String showTemperature(final Model model) {
         model.addAttribute("temperature", serviceInterface.getTemperature());
         return "temperature";
     }
 
-    @GetMapping ("/stonks")
+    @GetMapping("/stonks")
     public String showStonks(final Model model) {
-        model.addAttribute("stonks", serviceInterface.getStonks());
+        model.addAttribute("stonksList", serviceInterface.getStonks());
         return "stonks";
     }
 
-    @GetMapping ("/news")
+    @GetMapping("/news")
     public String showNews(final Model model) {
-        model.addAttribute("news", serviceInterface.getNews());
+        model.addAttribute("newsList", serviceInterface.getNews());
         return "news";
     }
 }

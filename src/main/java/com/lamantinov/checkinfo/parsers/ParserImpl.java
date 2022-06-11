@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,10 +50,10 @@ public class ParserImpl implements Parser {
         Matcher oilMatcher;
         Matcher valueMatcher;
 
-        String[] stringArray = StringUtils.substringsBetween(response, stonksOpenTag, stonksCloseTag);
-        Map<String, String> stonksValues = new LinkedHashMap<>();
+        final String[] stringArray = StringUtils.substringsBetween(response, stonksOpenTag, stonksCloseTag);
+        final Map<String, String> stonksValues = new LinkedHashMap<>();
 
-        for (String stonks : stringArray){
+        for (String stonks : Objects.requireNonNull(stringArray)){
             currencyMatcher = currencyPattern.matcher(stonks);
             oilMatcher = oilPattern.matcher(stonks);
             valueMatcher = valuePattern.matcher(stonks);
@@ -72,14 +73,9 @@ public class ParserImpl implements Parser {
     }
 
     @Override
-    public boolean isTemperature(String[] stringArray) {
-        Matcher temperatureMatcher = temperaturePattern.matcher(stringArray[0]);
-
-        if (stringArray.length == 1 && temperatureMatcher.find()) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean isTemperature(final String[] stringArray) {
+        final Matcher temperatureMatcher = temperaturePattern.matcher(stringArray[0]);
+        return stringArray.length == 1 && temperatureMatcher.find();
     }
 
 }
